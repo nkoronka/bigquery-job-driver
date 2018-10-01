@@ -1,27 +1,19 @@
-function testGetRows(){
-  var sql = "SELECT * FROM `greyhound-1336.105290899.reporting_prototype_partitioned_*`";
-  var bigQuery = new BQ();
-  var data = bigQuery.getRows(sql, true);
-  Logger.log(data);
-}
-
-
-
 // Responsible for taking GBQ sql query and returning well formatted data
 
 // constructor
 function BQ() {
 }
 
+// obtain data from BigQuery
 BQ.prototype.getRows = function(sql, returnHeader){
-  var projectId = "411917840025"; // from Google Developers Console
+  var projectId = "{project-id}"; // from Google Developers Console
 
   var request = {
     query: sql,
     useLegacySql: false,
     useQueryCache: false
-  };  
-  
+  };
+
   var queryResults = BigQuery.Jobs.query(request, projectId);
   var jobId = queryResults.jobReference.jobId;
 
@@ -34,11 +26,11 @@ BQ.prototype.getRows = function(sql, returnHeader){
     sleepTimeMs *= 2;
     queryResults = BigQuery.Jobs.getQueryResults(projectId, jobId);
   }
-  
+
   var queryFinish = new Date().getTime();
   var queryLengthMins = (queryFinish - queryStart)/60000;
   var rows = queryResults.rows;
-  
+
   // gather together results in case of multiple pages
   while (queryResults.pageToken) {
     queryResults = BigQuery.Jobs.getQueryResults(projectId, jobId, {
@@ -46,7 +38,7 @@ BQ.prototype.getRows = function(sql, returnHeader){
     });
     rows = rows.concat(queryResults.rows);
   }
-  
+
   if(rows){ // rows will be json array if query worked
     var headers = queryResults.schema.fields.map(function(field) {
       return field.name;
@@ -58,6 +50,7 @@ BQ.prototype.getRows = function(sql, returnHeader){
   }
 }
 
+// BigQuery API request formation
 BQ.prototype.runJob = function(sql, projectId, datasetId, tableId, writeDisposition, createDisposition){
   var configuration = {
     "query": {
@@ -67,21 +60,21 @@ BQ.prototype.runJob = function(sql, projectId, datasetId, tableId, writeDisposit
         "datasetId": datasetId,
         "tableId": tableId
       },
-      "writeDisposition": writeDisposition, 
+      "writeDisposition": writeDisposition,
       "createDisposition": createDisposition,
       "allowLargeResults": true,
       "useLegacySql": false,
       "query": sql
     }
   };
-   
+
   var job = {
       "configuration": configuration
   };
-   
+
   var jobResult = BigQuery.Jobs.insert(job, projectId);
   var jobId = jobResult.jobReference.jobId;
-  
+
   // wait for job complete flag
   var sleepTimeMs = 500;
   while (!jobResult.jobComplete) {
@@ -89,7 +82,7 @@ BQ.prototype.runJob = function(sql, projectId, datasetId, tableId, writeDisposit
     sleepTimeMs *= 2;
     jobResult = BigQuery.Jobs.getQueryResults(projectId, jobId);
   }
-  
+
   if(jobResult.jobComplete){
     return true;
   } else {
@@ -99,27 +92,26 @@ BQ.prototype.runJob = function(sql, projectId, datasetId, tableId, writeDisposit
 
 
 BQ.prototype._bigQueryToArray = function(data, returnHeader){
-  // converts the non-tabular array format handed back by GBQ into conventional table array  
+  // converts the non-tabular array format handed back by GBQ into conventional table array
   /*
   e.g data returned:
   [
-    [Medium, Revenue], 
+    [Medium, Revenue],
     [
-      {f=[{v=referral}, {v=896460.65}]}, 
-      {f=[{v=cpc}, {v=502093.69}]}, 
-      {f=[{v=organic}, {v=490287.64}]}, 
-      {f=[{v=(none)}, {v=421252.48}]}, 
-      {f=[{v=email}, {v=75232.62}]}, 
-      {f=[{v=cpm}, {v=4480.8}]}, 
-      {f=[{v=webbutton}, {v=929.25}]}, 
-      {f=[{v=(not set)}, {v=15.4}]}
+      {f=[{v=referral}, {v=0}]},
+      {f=[{v=cpc}, {v=0}]},
+      {f=[{v=organic}, {v=0}]},
+      {f=[{v=(none)}, {v=0}]},
+      {f=[{v=email}, {v=0}]},
+      {f=[{v=cpm}, {v=0}]},
+      {f=[{v=(not set)}, {v=0}]}
      ]
    ]
   */
-  
+
   var headers = data[0];
-  var rows = data[1];  
-  var flat_array = new Array(rows.length); 
+  var rows = data[1];
+  var flat_array = new Array(rows.length);
   // cycle through rows
   for (var i = 0; i < rows.length; i++) {
     var cols = rows[i].f;
@@ -127,15 +119,23 @@ BQ.prototype._bigQueryToArray = function(data, returnHeader){
     flat_array[i] = new Array(cols.length);
     // cycle through columns
     for (var j = 0; j < cols.length; j++) {
-      // set v columns returned from f - GBQ API returns unexpected array structure - {"f":[{"v":"P1709"},{"v":"44587"},{"v":"139166"},{"v":"3380"},{"v":"154909.45"}]},{"f":[{"v":"P1710"},{"v":"44927"},{"v":"153822"},{"v":"4471"},{"v":"222657.95"}]}
+      // set v columns returned from f - GBQ API returns unexpected array structure - {"f":[{"v":""},{"v":""},...}
       individual_column_of_f = cols[j].v;
       flat_array[i][j] = cols[j].v;
     }
   }
-  
+
   if(returnHeader){
     flat_array.unshift(headers);
   }
-  
+
   return flat_array;
+}
+
+
+function testGetRows(){
+  var sql = "SELECT * FROM `{project-id}.{dataset-id}.reporting_prototype_partitioned_*`";
+  var bigQuery = new BQ();
+  var data = bigQuery.getRows(sql, true);
+  Logger.log(data);
 }

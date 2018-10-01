@@ -24,7 +24,6 @@ function testStorage(){
 
 
 function viewStorage(){
-
   var storage = new Storage();
   var item = storage.load('core_daily_reporting_processed_today');
   Logger.log(item);

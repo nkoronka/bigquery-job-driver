@@ -1,3 +1,9 @@
+/*
+   Automating BigQuery workflows using BigQuery API & Google AppScript
+   See README.md for further details
+*/
+
+// main application flow starts here
 function main() {
   var storage = new Storage();
   var scheduler = new Scheduler(storage);
@@ -17,14 +23,15 @@ function main() {
         actionItemsConfig[i].email_data
       )
     );
-  } 
-  
+  }
+
   // cycle through actionItems and consider actioning
-  for(var i = 0; i < actionItems.length; i++) { 
+  for(var i = 0; i < actionItems.length; i++) {
     Logger.log("Processing item: "+actionItems[i].id);
-  
+
+    // delegate decision of whether report should run to scheduler object
     var schedulerResult = scheduler.shouldAction(actionItems[i]);
-    
+
     if(schedulerResult[0]){
       if(itemActioner.actionItem(actionItems[i], schedulerResult[1])){
         scheduler.updateLastRan(actionItems[i]);
@@ -44,7 +51,3 @@ function main() {
     }
   }
 }
-
-
-
-    

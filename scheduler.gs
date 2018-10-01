@@ -1,9 +1,16 @@
+/* Responsible for determining whether a job needs actioning at a
+   given moment in time. Considers data availability, whether data
+   has already been processed and whether a report has already run etc.
+*/
+
+
 // constructor
 function Scheduler(storage){
   this.storageRef = storage;
 }
 
 
+// determine if item needs actioning
 Scheduler.prototype.shouldAction = function(actionItem){
   var itemProcessed = this._checkActionItemProcessed(actionItem);
   // check whether item is already processed
@@ -29,14 +36,15 @@ Scheduler.prototype.shouldAction = function(actionItem){
 }
 
 
+// Updates storage detailing whether report has already run
 Scheduler.prototype.updateLastRan = function(actionItem){
   this.storageRef.save(actionItem.id+"_processed_today", true);
   Logger.log("Updated last ran date in storage");
 }
 
 
+// Return all reports to 'outstanding' status
 Scheduler.prototype.setReportsToOutstanding = function(){
-
   var actionItemsConfig = returnConfig();
 
   var storage = new Storage();
@@ -73,7 +81,7 @@ Scheduler.prototype._checkDataAvailable = function (actionItem){
     } else {
       Logger.log("Data available check returns: true");
       return true;
-    }  
+    }
   }
 }
 
@@ -94,7 +102,7 @@ Scheduler.prototype._checkPartitionNotPresent = function (actionItem){
 
 Scheduler.prototype._getCurrentDate = function(actionItem){
   var year = pad((new Date()).getFullYear().toString());
-  var month = pad(parseInt((new Date()).getMonth().toString()) + 1);  
+  var month = pad(parseInt((new Date()).getMonth().toString()) + 1);
   var date = pad((new Date()).getDate().toString());
   Logger.log("Get current date returns :" + year+month+date);
   return year+month+date;
@@ -105,7 +113,7 @@ Scheduler.prototype._getYesterdayDate = function(actionItem){
   var yesterdayDate = new Date();
   yesterdayDate.setDate(yesterdayDate.getDate()-1);
   var year = pad((yesterdayDate).getFullYear().toString());
-  var month = pad(parseInt((yesterdayDate).getMonth().toString()) + 1);  
+  var month = pad(parseInt((yesterdayDate).getMonth().toString()) + 1);
   var date = pad(yesterdayDate.getDate().toString());
   if(actionItem.debugArray['yesterdayDate']['overrideYesterdayDate']){
     Logger.log("Overriding yesterdayDate = "+ actionItem.debugArray['yesterdayDate']['date']);

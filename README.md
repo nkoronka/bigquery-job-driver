@@ -6,7 +6,7 @@ This code is designed to run daily processing jobs triggered
 
 Designed with querying GA data in mind
 
-![alt text][./images/partitoned_tables.png]
+![partitioned tables][images/partitoned_tables.png]
 
 ## Setup
 

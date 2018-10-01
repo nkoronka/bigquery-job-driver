@@ -21,7 +21,7 @@ Action the following:
 ![creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/triggers2.png)
 
 - Enable BigQuery API
-![Enable BQ API](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/resources->advanced google services.png)
+![...](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/resources->advanced google services.png)
 
 - Configure desired jobs within config.gs
 

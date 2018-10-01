@@ -18,10 +18,10 @@ Action the following:
 - Set project-id in bigquery.gs obtain this from your GCP console
 - Create a daily trigger at Edit -> Current project triggers
 
-![creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/triggers2.png)
+[creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/triggers2.png)
 
 - Enable BigQuery API
-![Enable BigQuery API](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/resources->advanced google services.png)
+[Enable BigQuery API](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/resources->advanced google services.png)
 
 - Configure desired jobs within config.gs
 
@@ -29,15 +29,15 @@ Action the following:
 The system can easily be made to process yesterday's data by including dynamic dates
 within the defining processing view:
 
-![creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/query2.png)
+[creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/query2.png)
 
 ## Components
 Explanations for main components of code base:
 
-*main.gs* - starting point of application flow
-*actionItem.gs* - object representing a report or any other kind of task we wish the code to run
-*itemActioner.gs* - class to delegate actioning of report to
-*storage.gs* - basic storage for understanding which reports have run and which still need actioning throughout the day
-*config.gs* - details settings for desired job schedule
+*main.gs* - starting point of application flow<br>
+*actionItem.gs* - object representing a report or any other kind of task we wish the code to run<br>
+*itemActioner.gs* - class to delegate actioning of report to<br>
+*storage.gs* - basic storage for understanding which reports have run and which still need actioning throughout the day<br>
+*config.gs* - details settings for desired job schedule<br>
 *scheduler.gs* - responsible for determining whether to execute an item at a
-particular moment in time
+particular moment in time<br>

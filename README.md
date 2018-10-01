@@ -6,7 +6,7 @@ This code is designed to run daily processing jobs triggered
 
 Designed with querying GA data in mind
 
-![partitioned tables](https://github.com/nkoronka/bigquery-job-driver/images/partitoned_tables.png]
+![partitioned tables](https://github.com/nkoronka/bigquery-job-driver/images/partitoned_tables.png)
 
 ## Setup
 

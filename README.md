@@ -19,8 +19,8 @@ Action the following:
 - Create a daily trigger at Edit -> Current project triggers
 
 ![creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/triggers2.png)
-- Enable BigQuery API
 
+- Enable BigQuery API
 ![Enable BigQuery API](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/resources->advanced google services.png)
 
 - Configure desired jobs within config.gs
@@ -29,7 +29,7 @@ Action the following:
 The system can easily be made to process yesterday's data by including dynamic dates
 within the defining processing view:
 
-![creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/query.png)
+![creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/query2.png)
 
 ## Components
 Explanations for main components of code base:

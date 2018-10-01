@@ -16,7 +16,7 @@ script and add all .gs files from this repo.
 
 Action the following:
 - Set project-id in bigquery.gs obtain this from your GCP console
-- Create a daily trigger at Edit->Current project triggers
+- Create a daily trigger at Edit -> Current project triggers
 ![creating daily trigger](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/triggers.png)
 - Enable BigQuery API
 ![Enable BigQuery API](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/resources->advanced google services.png)

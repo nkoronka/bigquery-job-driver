@@ -31,6 +31,7 @@ as well.
 You will also need to run the code manually the first time a BigQuery request is
 made in order to authorize the code to access the required services.
 
+
 - Configure desired jobs within config.gs
 
 ## Pointer
@@ -42,7 +43,7 @@ within the defining processing view:
 ## Components
 Explanations for main components of code base:
 
-*main.gs* - starting point of application flow<br>
+[*main.gs*](https://github.com/nkoronka/bigquery-job-driver/main.gs) - starting point of application flow<br>
 *actionItem.gs* - object representing a report or any other kind of task we wish the code to run<br>
 *itemActioner.gs* - class to delegate actioning of report to<br>
 *storage.gs* - basic storage for understanding which reports have run and which still need actioning throughout the day<br>

@@ -32,7 +32,7 @@ You will also need to run the code manually the first time a BigQuery request is
 made in order to authorize the code to access the required services.<br><br>
 
 
-- Configure desired jobs within config.gs
+- Configure desired jobs within config.gs<br><br>
 
 ## Pointer
 The system can easily be made to process yesterday's data by including dynamic dates

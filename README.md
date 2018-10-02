@@ -43,10 +43,10 @@ within the defining processing view:
 ## Components
 Explanations for main components of code base:
 
-[*main.gs*](https://github.com/nkoronka/bigquery-job-driver/main.gs) - starting point of application flow<br>
-*actionItem.gs* - object representing a report or any other kind of task we wish the code to run<br>
-*itemActioner.gs* - class to delegate actioning of report to<br>
-*storage.gs* - basic storage for understanding which reports have run and which still need actioning throughout the day<br>
-*config.gs* - details settings for desired job schedule<br>
-*scheduler.gs* - responsible for determining whether to execute an item at a
+[*main.gs*](https://github.com/nkoronka/bigquery-job-driver/blob/master/main.gs) - starting point of application flow<br>
+[*actionItem.gs*](https://github.com/nkoronka/bigquery-job-driver/blob/master/actionItem.gs) - object representing a report or any other kind of task we wish the code to run<br>
+[*itemActioner.gs*](https://github.com/nkoronka/bigquery-job-driver/blob/master/itemActioner.gs)- class to delegate actioning of report to<br>
+[*storage.gs*](https://github.com/nkoronka/bigquery-job-driver/blob/master/storage.gs) - basic storage for understanding which reports have run and which still need actioning throughout the day<br>
+[*config.gs*](https://github.com/nkoronka/bigquery-job-driver/blob/master/config.gs) - details settings for desired job schedule<br>
+[*scheduler.gs*](https://github.com/nkoronka/bigquery-job-driver/blob/master/scheduler.gs) - responsible for determining whether to execute an item at a
 particular moment in time<br>

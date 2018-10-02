@@ -24,6 +24,13 @@ Action the following:
 
 ![Enable BigQuery API](https://github.com/nkoronka/bigquery-job-driver/blob/master/images/resources-advanced-google-services.png)
 
+You will need to turn the BigQuery on using the switch shown as well as click on
+the "Google Cloud Platform API Dashboard" link shown and turn on the API there
+as well.
+
+You will also need to run the code manually the first time a BigQuery request is
+made in order to authorize the code to access the required services.
+
 - Configure desired jobs within config.gs
 
 ## Pointer
